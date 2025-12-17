@@ -1,0 +1,3 @@
+This is a plain text file.
+It exists only to verify that
+non-CSV uploads do not trigger Lambda.
