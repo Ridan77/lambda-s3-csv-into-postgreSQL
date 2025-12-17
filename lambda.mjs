@@ -1,7 +1,9 @@
 export const handler = async (event) => {
-    console.log(event)
-    return {
-        statusCode: 200,
-        body: `Hello`
-    }
-}
+  // TODO implement
+  console.log(event)
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify('Hello from Lambda!'),
+  };
+  return response;
+};
