@@ -12,6 +12,7 @@
     "typescript": "^5.4.0"
   },
   "dependencies": {
+    "csv-parse": "^6.1.0",
     "iconv-lite": "^0.7.1"
   }
 }

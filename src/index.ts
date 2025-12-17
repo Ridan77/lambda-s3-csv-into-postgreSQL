@@ -2,6 +2,7 @@ import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3'
 import type { Context, S3Event } from 'aws-lambda'
 import { Readable } from 'stream'
 import { decodeCsvBuffer } from './hebrewDecoder'
+import { parseCsv } from './csvParser'
 
 const s3 = new S3Client({})
 
@@ -45,8 +46,9 @@ export const handler = async (event: S3Event, context: Context) => {
   }
   const bodyBuffer = await streamToBuffer(response.Body as Readable)
   const csvText = decodeCsvBuffer(bodyBuffer)
+  const rows = parseCsv(csvText)
 
-  console.log('CSV content:\n', csvText)
+  console.log('Parsed rows', rows)
 
   return { statusCode: 200 }
 }
