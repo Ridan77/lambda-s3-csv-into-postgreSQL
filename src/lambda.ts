@@ -1,5 +1,5 @@
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3'
-import type { S3Event } from 'aws-lambda'
+import type { Context, S3Event } from 'aws-lambda'
 import { Readable } from 'stream'
 
 const s3 = new S3Client({})
@@ -12,14 +12,25 @@ const streamToString = async (stream: Readable): Promise<string> =>
     stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')))
   })
 
-export const handler = async (event: S3Event) => {
-  const record = event.Records[0]
+export const handler = async (event: S3Event, context: Context) => {
+  if (!event?.Records?.length) {
+    console.warn('No S3 records in event')
+    return { statusCode: 200 }
+  }
 
+  const record = event.Records[0]
   const bucket = record.s3.bucket.name
   const key = decodeURIComponent(record.s3.object.key.replace(/\+/g, ' '))
+  const sizeBytes = record.s3.object.size
 
-  console.log('Bucket:', bucket)
-  console.log('Key:', key)
+  console.log(
+    JSON.stringify({
+      requestId: context.awsRequestId,
+      bucket,
+      key,
+      sizeBytes,
+    })
+  )
 
   const response = await s3.send(
     new GetObjectCommand({
