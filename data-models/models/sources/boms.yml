@@ -1,0 +1,68 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: boms
+        description: >
+          Bill of Materials (BOM) headers provided via boms.csv.
+          Defines component structures for manufactured items.
+          BOMs may be versioned and time-bounded.
+
+        columns:
+          - name: bom_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: bom_code
+            description: Unique business identifier for the BOM.
+            tests:
+              - not_null
+              - unique
+
+          - name: item_id
+            description: >
+              Internal reference to finished or parent item.
+              Resolved from item_code supplied in CSV.
+
+          - name: bom_name
+            description: BOM display name (English).
+
+          - name: bom_name_hebrew
+            description: Optional Hebrew BOM name.
+
+          - name: version
+            description: BOM version number.
+
+          - name: base_qty
+            description: Base quantity for which the BOM is defined.
+
+          - name: base_uom_id
+            description: >
+              Internal reference to base unit of measure.
+              Resolved from uom_code supplied in CSV.
+
+          - name: is_active
+            description: Indicates whether the BOM is active.
+
+          - name: effective_date
+            description: Date from which the BOM is effective.
+
+          - name: expiry_date
+            description: Date after which the BOM is no longer valid.
+
+          - name: notes
+            description: BOM notes.
+
+          - name: notes_hebrew
+            description: BOM notes (Hebrew).
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

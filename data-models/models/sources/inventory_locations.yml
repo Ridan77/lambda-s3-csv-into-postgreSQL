@@ -1,0 +1,68 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: inventory_locations
+        description: >
+          Inventory location master data provided via inventory_locations.csv.
+          Represents warehouses, storage areas, and physical locations.
+
+        columns:
+          - name: location_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: location_code
+            description: Unique business identifier for the location.
+            tests:
+              - not_null
+              - unique
+
+          - name: location_name
+            description: Location name (English).
+            tests:
+              - not_null
+
+          - name: location_name_hebrew
+            description: Optional Hebrew location name.
+
+          - name: location_type
+            description: Location classification (e.g. warehouse, shop floor).
+            tests:
+              - not_null
+
+          - name: address_city
+            description: City where the location resides.
+
+          - name: address_city_hebrew
+            description: Hebrew city name.
+
+          - name: address_street
+            description: Street address.
+
+          - name: address_street_hebrew
+            description: Hebrew street name.
+
+          - name: capacity_units
+            description: Maximum capacity of the location.
+
+          - name: capacity_uom_id
+            description: >
+              Internal reference to unit of measure used for capacity.
+              Resolved from uom_code supplied in CSV.
+
+          - name: is_active
+            description: Indicates whether the location is active.
+            tests:
+              - not_null
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

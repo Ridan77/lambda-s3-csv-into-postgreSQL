@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: purchase_order_lines
+        description: >
+          Purchase order line items provided via purchase_order_lines.csv.
+          Each line references a purchase order header.
+
+        columns:
+          - name: line_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: po_id
+            description: >
+              Internal reference to purchase order.
+              Resolved from po_number supplied in CSV.
+
+          - name: line_number
+            description: Line sequence number within the purchase order.
+            tests:
+              - not_null
+
+          - name: item_id
+            description: >
+              Internal reference to item.
+              Resolved from item_code supplied in CSV.
+
+          - name: ordered_qty
+            description: Quantity ordered.
+            tests:
+              - not_null
+
+          - name: received_qty
+            description: Quantity received.
+
+          - name: uom_id
+            description: >
+              Internal reference to unit of measure.
+              Resolved from uom_code supplied in CSV.
+
+          - name: unit_cost
+            description: Unit cost.
+
+          - name: line_amount
+            description: Total line amount.
+
+          - name: line_status
+            description: Line status.
+
+          - name: expected_date
+            description: Expected receipt date for the line.
+
+          - name: quality_status
+            description: Quality inspection status.
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

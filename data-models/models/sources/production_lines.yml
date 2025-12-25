@@ -1,0 +1,63 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: production_lines
+        description: >
+          Production line master data provided via production_lines.csv.
+          Represents manufacturing lines within inventory locations.
+
+        columns:
+          - name: line_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: line_code
+            description: Unique business identifier for the production line.
+            tests:
+              - not_null
+              - unique
+
+          - name: line_name
+            description: Production line name (English).
+            tests:
+              - not_null
+
+          - name: line_name_hebrew
+            description: Optional Hebrew line name.
+
+          - name: location_id
+            description: >
+              Internal reference to inventory location.
+              Resolved from location_code supplied in CSV.
+
+          - name: line_type
+            description: Optional production line classification.
+
+          - name: capacity_per_hour
+            description: Nominal production capacity per hour.
+
+          - name: capacity_uom_id
+            description: >
+              Internal reference to capacity unit of measure.
+              Resolved from uom_code supplied in CSV.
+
+          - name: status
+            description: Operational status of the production line.
+
+          - name: last_maintenance_date
+            description: Date of last maintenance activity.
+
+          - name: next_maintenance_date
+            description: Scheduled next maintenance date.
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

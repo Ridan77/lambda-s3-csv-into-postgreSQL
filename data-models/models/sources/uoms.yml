@@ -1,0 +1,49 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: uoms
+        description: >
+          Unit of Measure (UOM) master data provided via uoms.csv.
+          Used throughout the system for quantities and conversions.
+
+        columns:
+          - name: uom_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: uom_code
+            description: Unique business identifier for the unit of measure.
+            tests:
+              - not_null
+              - unique
+
+          - name: uom_name
+            description: Unit of measure name (English).
+            tests:
+              - not_null
+
+          - name: uom_name_hebrew
+            description: Optional Hebrew unit name.
+
+          - name: uom_type
+            description: Optional unit classification.
+
+          - name: base_uom_id
+            description: >
+              Internal reference to base unit of measure.
+              Resolved from base_uom_code supplied in CSV.
+
+          - name: conversion_factor
+            description: Conversion factor relative to base UOM.
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

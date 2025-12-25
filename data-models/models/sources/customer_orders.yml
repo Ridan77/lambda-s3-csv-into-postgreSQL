@@ -1,0 +1,79 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: customer_orders
+        description: >
+          Customer sales order headers provided via customer_orders.csv.
+          One record per customer order. References are resolved via
+          business keys (e.g., customer_code).
+
+        columns:
+          - name: order_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: order_number
+            description: Unique business identifier for the customer order.
+            tests:
+              - not_null
+              - unique
+
+          - name: customer_id
+            description: >
+              Internal reference to customer.
+              Resolved from customer_code supplied in CSV.
+
+          - name: order_date
+            description: Order creation timestamp.
+            tests:
+              - not_null
+
+          - name: requested_date
+            description: Date requested by the customer.
+
+          - name: promised_date
+            description: Date promised to the customer.
+
+          - name: shipped_date
+            description: Date the order was shipped.
+
+          - name: order_status
+            description: Order status (e.g., new, shipped).
+
+          - name: priority
+            description: Order priority.
+
+          - name: total_amount
+            description: Total order amount.
+
+          - name: currency
+            description: Currency code.
+
+          - name: shipping_address_city
+            description: Shipping city.
+
+          - name: shipping_address_city_hebrew
+            description: Shipping city (Hebrew).
+
+          - name: notes
+            description: Order notes.
+
+          - name: notes_hebrew
+            description: Order notes (Hebrew).
+
+          - name: created_by
+            description: >
+              Internal reference to employee who created the order.
+              Resolved from employee_code supplied in CSV.
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

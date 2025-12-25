@@ -1,0 +1,60 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: work_centers
+        description: >
+          Work center master data provided via work_centers.csv.
+          Represents operational units within production lines.
+
+        columns:
+          - name: work_center_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: work_center_code
+            description: Unique business identifier for the work center.
+            tests:
+              - not_null
+              - unique
+
+          - name: work_center_name
+            description: Work center name (English).
+            tests:
+              - not_null
+
+          - name: work_center_name_hebrew
+            description: Optional Hebrew work center name.
+
+          - name: line_id
+            description: >
+              Internal reference to production line.
+              Resolved from line_code supplied in CSV.
+
+          - name: work_center_type
+            description: Optional work center classification.
+
+          - name: capacity_per_hour
+            description: Nominal capacity per hour.
+
+          - name: capacity_uom_id
+            description: >
+              Internal reference to unit of measure for capacity.
+              Resolved from uom_code supplied in CSV.
+
+          - name: cost_per_hour
+            description: Operational cost per hour.
+
+          - name: status
+            description: Operational status of the work center.
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

@@ -1,0 +1,54 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: routing_operations
+        description: >
+          Routing operation steps provided via routing_operations.csv.
+          Defines ordered manufacturing steps within a routing.
+
+        columns:
+          - name: operation_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: routing_id
+            description: >
+              Internal reference to routing header.
+              Resolved from routing_code supplied in CSV.
+
+          - name: operation_sequence
+            description: Sequence number of the operation within the routing.
+            tests:
+              - not_null
+
+          - name: operation_name
+            description: Operation name (English).
+
+          - name: operation_name_hebrew
+            description: Operation name (Hebrew).
+
+          - name: work_center_id
+            description: >
+              Internal reference to work center.
+              Resolved from work_center_code supplied in CSV.
+
+          - name: setup_time_minutes
+            description: Setup time required for the operation.
+
+          - name: run_time_minutes
+            description: Run time required for the operation.
+
+          - name: queue_time_minutes
+            description: Queue time before operation.
+
+          - name: move_time_minutes
+            description: Move time after operation.
+
+          - name: created_at
+            description: System creation timestamp.

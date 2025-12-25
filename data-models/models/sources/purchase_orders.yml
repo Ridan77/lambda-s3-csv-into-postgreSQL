@@ -1,0 +1,71 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: purchase_orders
+        description: >
+          Purchase order headers provided via purchase_orders.csv.
+          Represents procurement orders issued to suppliers.
+
+        columns:
+          - name: po_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: po_number
+            description: Unique business identifier for the purchase order.
+            tests:
+              - not_null
+              - unique
+
+          - name: supplier_id
+            description: >
+              Internal reference to supplier.
+              Resolved from supplier_code supplied in CSV.
+
+          - name: order_date
+            description: Purchase order creation timestamp.
+            tests:
+              - not_null
+
+          - name: expected_date
+            description: Expected receipt date.
+
+          - name: received_date
+            description: Actual receipt date.
+
+          - name: po_status
+            description: Purchase order status (e.g., draft, approved).
+
+          - name: total_amount
+            description: Total purchase order amount.
+
+          - name: currency
+            description: Currency code.
+
+          - name: notes
+            description: Purchase order notes.
+
+          - name: notes_hebrew
+            description: Purchase order notes (Hebrew).
+
+          - name: created_by
+            description: >
+              Internal reference to employee who created the PO.
+              Resolved from employee_code supplied in CSV.
+
+          - name: approved_by
+            description: >
+              Internal reference to employee who approved the PO.
+              Resolved from employee_code supplied in CSV.
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

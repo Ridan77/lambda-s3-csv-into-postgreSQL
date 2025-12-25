@@ -1,0 +1,50 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: shifts
+        description: >
+          Shift master data provided via shifts.csv.
+          Defines working shifts used for employees and operations.
+
+        columns:
+          - name: shift_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: shift_code
+            description: Unique business identifier for the shift.
+            tests:
+              - not_null
+              - unique
+
+          - name: shift_name
+            description: Shift name (English).
+            tests:
+              - not_null
+
+          - name: shift_name_hebrew
+            description: Optional Hebrew shift name.
+
+          - name: start_time
+            description: Shift start time.
+            tests:
+              - not_null
+
+          - name: end_time
+            description: Shift end time.
+            tests:
+              - not_null
+
+          - name: is_active
+            description: Indicates whether the shift is active.
+            tests:
+              - not_null
+
+          - name: created_at
+            description: System creation timestamp.

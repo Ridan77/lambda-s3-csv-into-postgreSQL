@@ -1,0 +1,50 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: routings
+        description: >
+          Manufacturing routing headers provided via routings.csv.
+          Defines the operational flow for producing an item.
+
+        columns:
+          - name: routing_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: routing_code
+            description: Unique business identifier for the routing.
+            tests:
+              - not_null
+              - unique
+
+          - name: item_id
+            description: >
+              Internal reference to item produced by this routing.
+              Resolved from item_code supplied in CSV.
+
+          - name: routing_name
+            description: Routing display name (English).
+
+          - name: routing_name_hebrew
+            description: Routing display name (Hebrew).
+
+          - name: version
+            description: Routing version number.
+
+          - name: is_active
+            description: Indicates whether the routing is active.
+
+          - name: effective_date
+            description: Date from which the routing is effective.
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

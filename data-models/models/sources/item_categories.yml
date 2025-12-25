@@ -1,0 +1,43 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: item_categories
+        description: >
+          Item category master data provided via item_categories.csv.
+          Categories may form a hierarchy via parent category relationships.
+
+        columns:
+          - name: category_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: category_code
+            description: Unique business identifier for the category.
+            tests:
+              - not_null
+              - unique
+
+          - name: category_name
+            description: Category name (English).
+            tests:
+              - not_null
+
+          - name: category_name_hebrew
+            description: Optional Hebrew category name.
+
+          - name: parent_category_id
+            description: >
+              Internal reference to parent category.
+              Resolved from parent_category_code supplied in CSV.
+
+          - name: category_type
+            description: Optional category classification.
+
+          - name: created_at
+            description: System creation timestamp.

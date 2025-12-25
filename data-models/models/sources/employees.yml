@@ -1,0 +1,77 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: employees
+        description: >
+          Employee master data provided via employees.csv.
+          Represents system users, operators, and staff.
+
+        columns:
+          - name: employee_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: employee_code
+            description: Unique business identifier for the employee.
+            tests:
+              - not_null
+              - unique
+
+          - name: first_name
+            description: Employee first name (English).
+            tests:
+              - not_null
+
+          - name: first_name_hebrew
+            description: Optional Hebrew first name.
+
+          - name: last_name
+            description: Employee last name (English).
+            tests:
+              - not_null
+
+          - name: last_name_hebrew
+            description: Optional Hebrew last name.
+
+          - name: email
+            description: Employee email address.
+
+          - name: phone
+            description: Employee phone number.
+
+          - name: role
+            description: Employee role or title.
+
+          - name: role_hebrew
+            description: Hebrew role description.
+
+          - name: department
+            description: Department name.
+
+          - name: department_hebrew
+            description: Hebrew department name.
+
+          - name: default_shift_id
+            description: >
+              Internal reference to default shift.
+              Resolved from shift_code supplied in CSV.
+
+          - name: hire_date
+            description: Employee hire date.
+
+          - name: is_active
+            description: Indicates whether the employee is active.
+            tests:
+              - not_null
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

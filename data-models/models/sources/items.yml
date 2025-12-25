@@ -1,0 +1,108 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: items
+        description: >
+          Item master data provided via items.csv.
+          Represents products, raw materials, and manufactured goods.
+          Internal identifiers are system-generated and must not be supplied
+          by customers. References are resolved via business codes.
+
+        columns:
+          - name: item_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: item_code
+            description: Unique business identifier for the item.
+            tests:
+              - not_null
+              - unique
+
+          - name: item_name
+            description: Primary item display name (English).
+            tests:
+              - not_null
+
+          - name: item_name_hebrew
+            description: Optional Hebrew item display name.
+
+          - name: item_description
+            description: Optional item description.
+
+          - name: item_description_hebrew
+            description: Optional Hebrew item description.
+
+          - name: category_id
+            description: >
+              Internal reference to item category.
+              Resolved from category_code supplied in CSV.
+
+          - name: item_type
+            description: Item classification (e.g. raw_material, finished_goods).
+            tests:
+              - not_null
+
+          - name: brand
+            description: Optional brand name.
+
+          - name: brand_hebrew
+            description: Optional Hebrew brand name.
+
+          - name: primary_uom_id
+            description: >
+              Internal reference to primary unit of measure.
+              Resolved from uom_code supplied in CSV.
+
+          - name: secondary_uom_id
+            description: >
+              Internal reference to secondary unit of measure.
+
+          - name: uom_conversion_factor
+            description: Conversion factor between primary and secondary units.
+
+          - name: weight_kg
+            description: Item weight in kilograms.
+
+          - name: volume_liters
+            description: Item volume in liters.
+
+          - name: shelf_life_days
+            description: Shelf life in days.
+
+          - name: min_order_qty
+            description: Minimum order quantity.
+
+          - name: standard_cost
+            description: Standard item cost.
+
+          - name: list_price
+            description: Item list price.
+
+          - name: safety_stock_qty
+            description: Safety stock threshold.
+
+          - name: reorder_point
+            description: Reorder point quantity.
+
+          - name: is_kosher
+            description: Indicates whether the item is kosher.
+            tests:
+              - not_null
+
+          - name: is_active
+            description: Indicates whether the item is active.
+            tests:
+              - not_null
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

@@ -1,0 +1,80 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: suppliers
+        description: >
+          Supplier master data provided via suppliers.csv.
+          Represents vendors used in procurement and purchasing flows.
+
+        columns:
+          - name: supplier_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: supplier_code
+            description: Unique business identifier for the supplier.
+            tests:
+              - not_null
+              - unique
+
+          - name: supplier_name
+            description: Supplier display name (English).
+            tests:
+              - not_null
+
+          - name: supplier_name_hebrew
+            description: Optional Hebrew supplier name.
+
+          - name: supplier_type
+            description: Optional supplier classification.
+
+          - name: contact_name
+            description: Primary contact person name.
+
+          - name: contact_name_hebrew
+            description: Optional Hebrew contact name.
+
+          - name: email
+            description: Contact email address.
+
+          - name: phone
+            description: Contact phone number.
+
+          - name: address_city
+            description: Supplier city.
+
+          - name: address_city_hebrew
+            description: Hebrew city name.
+
+          - name: address_country
+            description: Supplier country.
+
+          - name: lead_time_days
+            description: Expected lead time in days.
+            tests:
+              - not_null
+
+          - name: payment_terms_days
+            description: Payment terms in days.
+            tests:
+              - not_null
+
+          - name: quality_rating
+            description: Supplier quality rating score.
+
+          - name: is_active
+            description: Indicates whether the supplier is active.
+            tests:
+              - not_null
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.

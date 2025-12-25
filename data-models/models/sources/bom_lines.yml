@@ -1,0 +1,61 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: bom_lines
+        description: >
+          Bill of Materials component lines provided via bom_lines.csv.
+          Each record represents a component within a BOM.
+
+        columns:
+          - name: bom_line_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: bom_id
+            description: >
+              Internal reference to BOM header.
+              Resolved from bom_code supplied in CSV.
+
+          - name: line_number
+            description: Sequence number of the component within the BOM.
+            tests:
+              - not_null
+
+          - name: component_item_id
+            description: >
+              Internal reference to component item.
+              Resolved from item_code supplied in CSV.
+
+          - name: quantity
+            description: Component quantity required.
+            tests:
+              - not_null
+
+          - name: uom_id
+            description: >
+              Internal reference to unit of measure.
+              Resolved from uom_code supplied in CSV.
+
+          - name: scrap_percent
+            description: Expected scrap percentage for the component.
+
+          - name: is_critical
+            description: Indicates whether the component is critical.
+
+          - name: lead_time_offset_days
+            description: Lead time offset in days.
+
+          - name: notes
+            description: Component notes.
+
+          - name: notes_hebrew
+            description: Component notes (Hebrew).
+
+          - name: created_at
+            description: System creation timestamp.

@@ -1,0 +1,70 @@
+version: 2
+
+sources:
+  - name: ingestion
+    schema: public
+
+    tables:
+      - name: customer_order_lines
+        description: >
+          Customer sales order line items provided via customer_order_lines.csv.
+          Each line references a customer order header.
+
+        columns:
+          - name: line_id
+            description: System-generated internal identifier.
+            tests:
+              - not_null
+              - unique
+
+          - name: order_id
+            description: >
+              Internal reference to customer order.
+              Resolved from order_number supplied in CSV.
+
+          - name: line_number
+            description: Line sequence number within the order.
+            tests:
+              - not_null
+
+          - name: item_id
+            description: >
+              Internal reference to item.
+              Resolved from item_code supplied in CSV.
+
+          - name: requested_qty
+            description: Quantity requested by the customer.
+            tests:
+              - not_null
+
+          - name: confirmed_qty
+            description: Quantity confirmed.
+
+          - name: shipped_qty
+            description: Quantity shipped.
+
+          - name: uom_id
+            description: >
+              Internal reference to unit of measure.
+              Resolved from uom_code supplied in CSV.
+
+          - name: unit_price
+            description: Unit selling price.
+
+          - name: line_amount
+            description: Total line amount.
+
+          - name: line_status
+            description: Line status.
+
+          - name: requested_date
+            description: Requested fulfillment date.
+
+          - name: promised_date
+            description: Promised fulfillment date.
+
+          - name: created_at
+            description: System creation timestamp.
+
+          - name: updated_at
+            description: System update timestamp.
